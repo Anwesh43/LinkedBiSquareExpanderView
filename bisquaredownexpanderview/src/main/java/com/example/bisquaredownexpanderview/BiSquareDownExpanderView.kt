@@ -28,3 +28,23 @@ fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
 fun Float.divideScale(i : Int, n : Int) : Float = Math.min(n.inverse(), maxScale(i, n)) * n
 fun Float.sinify() : Float = Math.sin(this * Math.PI).toFloat()
+
+fun Canvas.drawBiSquareDownExpander(scale : Float, w : Float, h : Float, paint : Paint) {
+    val sf : Float = scale.sinify()
+    val sfLast : Float = sf.divideScale(3, parts)
+    val size : Float = Math.min(w, h) / sizeFactor
+    val hUp : Float = 2 * size * sf.divideScale(0, parts) + (h - 2 * size) * sfLast
+    val x : Float = (w / 2 - size)  * sf.divideScale(2, parts) - size
+    val y : Float = (h - 2 * size) * (sf.divideScale(1, parts) - sfLast)
+    save()
+    translate(w / 2, y)
+    drawRect(RectF(x, 0f, x + 2 * size, hUp), paint)
+    restore()
+}
+
+fun Canvas.drawBSDENode(i : Int, scale : Float, paint : Paint) {
+    val w : Float = width.toFloat()
+    val h : Float = height.toFloat()
+    paint.color = colors[i]
+    drawBiSquareDownExpander(scale, w, h, paint)
+}
