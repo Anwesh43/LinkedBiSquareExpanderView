@@ -175,4 +175,27 @@ class BiSquareDownExpanderView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : BiSquareDownExpanderView) {
+
+        private val animator : Animator = Animator(view)
+        private val bsde : BiSquareDownExpander = BiSquareDownExpander(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            bsde.draw(canvas, paint)
+            animator.animate {
+                bsde.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            bsde.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
