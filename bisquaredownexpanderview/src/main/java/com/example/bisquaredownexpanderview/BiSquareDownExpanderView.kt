@@ -200,4 +200,13 @@ class BiSquareDownExpanderView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : BiSquareDownExpanderView {
+            val view : BiSquareDownExpanderView = BiSquareDownExpanderView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
