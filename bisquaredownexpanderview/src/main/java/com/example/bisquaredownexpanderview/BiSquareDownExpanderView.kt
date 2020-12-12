@@ -38,7 +38,12 @@ fun Canvas.drawBiSquareDownExpander(scale : Float, w : Float, h : Float, paint :
     val y : Float = (h - 2 * size) * (sf.divideScale(1, parts) - sfLast)
     save()
     translate(w / 2, y)
-    drawRect(RectF(x, 0f, x + 2 * size, hUp), paint)
+    for (j in 0..1) {
+        save()
+        scale(1f - 2 * j, 1f)
+        drawRect(RectF(x, 0f, x + 2 * size, hUp), paint)
+        restore()
+    }
     restore()
 }
 
