@@ -1,0 +1,3 @@
+include ':bisquaredownexpanderview'
+include ':app'
+rootProject.name = "LinkedBiSquareExpanderView"
